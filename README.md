@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Simple To Do List with CRUD functionality to practice, reinforce modern React concepts and to practice with MongoDB.
 
 ## Available Scripts
 
