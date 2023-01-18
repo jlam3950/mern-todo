@@ -4,10 +4,13 @@ import { useState } from 'react';
 
 const SearchBar = ({addTask}) => {
   
-  const [text, setText] = useState('hi')
+  const [text, setText] = useState('')
 
   const submitTask = (e, text) => { 
     e.preventDefault();
+    if(text == ''){
+      alert('Please, enter some text for your to-do list!')
+    }
     addTask(text)
   }
 
@@ -16,7 +19,7 @@ const SearchBar = ({addTask}) => {
     <>
     <div className ='searchBar'>
         <label> 
-        Search:
+        Add Task:
             <input type = 'text' className = 'bar' onChange = {(e) => setText(e.target.value)}></input>
             {/* <Button type = 'button' color ={'Green'} text={'Add Task'} click ={hi}/> */}
             <button className = 'btn' type = 'button' onClick ={(e) => submitTask(e, text)} style={{backgroundColor: 'green'}}>Submit</button>
