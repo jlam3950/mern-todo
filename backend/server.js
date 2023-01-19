@@ -1,11 +1,19 @@
 const dotenv = require('dotenv')
 dotenv.config({ path: '../.env' });
 const express = require('express');
+const cors = require("cors");
 const app = express();
 const PORT = 8000;
 const mongoose= require('mongoose');
 const Task = require('./schema/Task');
-test
+const idNum = Math.floor(Math.random() * 100)
+
+app.use(
+    cors({
+        origin: 'http://localhost:3000',
+        credentials: true
+    })
+)
 
 mongoose.connect(process.env.MONGO_URL,
 () => {
@@ -15,18 +23,15 @@ mongoose.connect(process.env.MONGO_URL,
 )
 
 async function run(){
-    const firstTask = await Task.create({task:'jumpe rope'})
-    await firstTask.save()
-    console.log(firstTask)
+    try { 
+        const firstTask = await Task.create({task:'jumpe rope', completed: 'true', id: idNum})
+        await firstTask.save()
+        console.log(firstTask)
+    }catch(e){
+        console.log(e)
+} 
 }
-run()
-//schema defines what the struct of data looks like  
+// run()
 
-app.get('/', (req,res) => {
-    res.send('server is up');
-    console.log('server is working')
-})
-
-// app.use('/', require('./routes/taskRoutes'))
-
+app.use('/', require('./routes/taskRoutes'))
 app.listen(PORT, ()=> console.log(`app is running on ${PORT}`));

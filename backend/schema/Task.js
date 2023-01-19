@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
-    task: String, 
-    // id: Number,
+    task: String,  
+    completed: Boolean,
+    id: Number,
 })
 
 module.exports = mongoose.model('Task', taskSchema)

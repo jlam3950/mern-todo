@@ -2,14 +2,13 @@ import './App.css';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import List from './components/ List';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [render, setRender] = useState(true);
   const [dummyAPI, setAPI] = useState(
       [
         {task:'run',
-         date: '1/1/23',
          completed: false,
          id: 1,
          },
@@ -22,7 +21,21 @@ function App() {
          id: 3,
       },
       ]
-    )
+  )
+
+const retreiveMongoData = async () => {
+
+  let response = await fetch ('http://localhost:8000', {
+    method: 'GET',
+  });
+
+  const data = await response.json();
+  console.log(data)
+  }
+
+useEffect( () => {
+  retreiveMongoData()
+}, [])
 
   const addTask = (text) => {
     setAPI([...dummyAPI, {
@@ -47,7 +60,7 @@ function App() {
       })
   }
   
-  return (
+return (
     <div className="App">
         <Header/>
         <SearchBar addTask = {addTask}/>

@@ -1,15 +1,16 @@
 const express = require('express');
-const app = express();
-const router = express.Router;
-const { getTasks } = require('./controllers/taskControllers')
+const router = express.Router();
+// const { getTasks } = require('./controllers/taskControllers')
 
-router.get('/', getTasks);
+router.get('/', (req,res) => {
+    res.send({task: 'run for fun'})
+})
 
-router.put('/', (req,res) => {
+router.post('/', (req,res) => {
     res.status(200).send({message: 'set Task'})
 })
 
-router.update('/:id', (req,res) => {
+router.put('/:id', (req,res) => {
     res.status(200).send({message: `update Task ${req.params.id}`})
 })
 
