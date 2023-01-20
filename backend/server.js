@@ -6,7 +6,9 @@ const app = express();
 const PORT = 8000;
 const mongoose= require('mongoose');
 const Task = require('./schema/Task');
-const idNum = Math.floor(Math.random() * 100)
+const idNum = Math.floor(Math.random() * 1000)
+app.use(express.json()); //need to parse the json(to convert into an object for the request, use this for post/body)
+
 
 app.use(
     cors({
@@ -22,16 +24,15 @@ mongoose.connect(process.env.MONGO_URL,
  e => console.error(e)
 )
 
-async function run(){
+const run = async () => {
     try { 
-        const firstTask = await Task.create({task:'jumpe rope', completed: 'true', id: idNum})
+        const firstTask = await Task.create({task:'jumpe rope', completed: 'false', id: idNum})
         await firstTask.save()
         console.log(firstTask)
     }catch(e){
         console.log(e)
 } 
 }
-// run()
 
 app.use('/', require('./routes/taskRoutes'))
 app.listen(PORT, ()=> console.log(`app is running on ${PORT}`));

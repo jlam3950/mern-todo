@@ -1,13 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const Task = require ('../schema/Task')
 // const { getTasks } = require('./controllers/taskControllers')
 
 router.get('/', (req,res) => {
-    res.send({task: 'run for fun'})
+    Task.find({}, (err, result) => {
+        if(err) {
+       res.send(err)
+        } else {
+            res.send(result)
+        }
+    })
 })
 
-router.post('/', (req,res) => {
-    res.status(200).send({message: 'set Task'})
+router.post('/', async (req,res) => {
+    const taskInput = req.body;
+    const newTask = new Task(taskInput); //pass req.body, using schema 
+    await newTask.save(); //make sure that this is async/await 
+    res.json(taskInput); //won't be using, but to display data to front end 
 })
 
 router.put('/:id', (req,res) => {
