@@ -1,7 +1,34 @@
 const getTasks = (req,res) => {
-    res.status(200).json({message: 'Get Goals'})
+        Task.find({}, (err, result) => {
+            if(err) {
+           res.send(err)
+            } else {
+                res.send(result)
+            }
+        })
 }
 
+const postTasks = async (req,res) => {
+    try{
+        const taskInput = req.body;
+        const newTask = new Task(taskInput); //pass req.body, using schema 
+        await newTask.save(); //make sure that this is async/await 
+        res.json(taskInput); //won't be using, but to display data to front end 
+    } catch(e) {
+        res.send(e)
+    }
+}
+
+const deleteTasks = async(req,res) => {
+    try{
+    const id = req.params.id; 
+    await Task.findByIdAndRemove(id)
+    res.status(200).send('task deleted')
+    } catch(e){
+        res.send(e)
+    }
+    }
+
 module.exports = {
-    getTasks,
+    getTasks, postTasks, deleteTasks
 }

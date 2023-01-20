@@ -6,7 +6,7 @@ const SearchBar = ({addTask, addTaskMongo}) => {
   
   // const [text, setText] = useState('')
   const [task, setTask] = useState('')
-  const id = Math.floor(Math.random * 1000)
+  const id = Math.floor(Math.random() * 1000)
 
   const submitTask = (e, task) => { 
     e.preventDefault();

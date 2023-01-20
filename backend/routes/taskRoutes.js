@@ -1,32 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const Task = require ('../schema/Task')
-// const { getTasks } = require('./controllers/taskControllers')
+const Task = require ('../model/Task')
+const { getTasks, postTasks, deleteTasks } = require('.././controllers/taskControllers')
 
-router.get('/', (req,res) => {
-    Task.find({}, (err, result) => {
-        if(err) {
-       res.send(err)
-        } else {
-            res.send(result)
-        }
-    })
+router.get('/', getTasks);
+
+router.post('/', postTasks)
+
+router.put('/:id', async(req,res) => {
+    // res.status(200).send({message: `update Task ${req.params.id}`})
+    try{
+        const id = req.params.id;
+        const task = await Task.findOneAndUpdate(
+           { _id: id },
+           {$set: {completed: !completed}}
+        );
+        // task.complete = !complete;
+        await task.save();
+        res.send(console.log('task completion toggled'))
+    } catch (e) {
+        res.send(e);
+    }
 })
 
-router.post('/', async (req,res) => {
-    const taskInput = req.body;
-    const newTask = new Task(taskInput); //pass req.body, using schema 
-    await newTask.save(); //make sure that this is async/await 
-    res.json(taskInput); //won't be using, but to display data to front end 
-})
-
-router.put('/:id', (req,res) => {
-    res.status(200).send({message: `update Task ${req.params.id}`})
-})
-
-router.delete('/:id', (req,res) => {
-    res.status(200).send({message: `delete Task ${req.params.id}`})
-})
+router.delete('/:id', deleteTasks)
 
 module.exports = router; 
 
