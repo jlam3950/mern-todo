@@ -1,3 +1,5 @@
+const Task = require('../model/Task')
+
 const getTasks = (req,res) => {
         Task.find({}, (err, result) => {
             if(err) {
@@ -21,6 +23,7 @@ const postTasks = async (req,res) => {
 
 const deleteTasks = async(req,res) => {
     try{
+        console.log('ya found me')
     const id = req.params.id; 
     await Task.findByIdAndRemove(id)
     res.status(200).send('task deleted')

@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
-    task: String,  
-    completed: Boolean,
+    task: {
+        type: String, 
+        required: [true, 'you forgot to enter a task']
+    },
+    completed: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     id: String
 })
 

@@ -8,8 +8,8 @@ const List = ({taskList,  deleteTask, completeTask}) => {
 
         <div className = 'list'>
             {taskList.map((item) => (
-                 <div key={Math.floor(Math.random() * 100)} className ='list_item' onClick = {() => completeTask(item._id, item)}>
-                    {/* {item._id} */}
+                 <div key={Math.floor(Math.random() * 100)} className ='list_item' onClick = {() => completeTask(item._id, item.completed)}>
+                    {/* {item.id} */}
                     {item.completed ? <div style = {{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}> {item.task}</div> : <>{item.task}</>}
                     {item.completed ? <FaTimes className ='icon'style ={{color: 'red'}} onClick = {() => deleteTask(item._id)} /> : ''}
                  </div>
