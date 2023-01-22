@@ -16,7 +16,7 @@ A full-stack to-do list application built with MERN.
 - React front end with minimalist UI/UX design. 
 ## Videos & Screenshots
 
-<img class = 'readme' src="../react-todo/client/src/images/screenshot1.png" width="300px" margin='2rem'>
+<img class = 'readme' src="../react-todo/client/src/images/screenshot1.jpg" width="300px" margin='2rem'>
 
 ## Built With 
 * React
