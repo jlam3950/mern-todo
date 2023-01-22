@@ -21,9 +21,20 @@ const postTasks = async (req,res) => {
     }
 }
 
+const updateTasks = async (req,res) => {
+    try{
+        const { id } = req.params;
+        const updatedTask = await Task.findByIdAndUpdate(
+            {_id: id}, req.body, {new: true}) 
+            // new:true lets db know you are saving 
+            res.status(200).send(updatedTask)
+    } catch (e) {
+        res.status(500).send(e);
+    }
+}
+
 const deleteTasks = async(req,res) => {
     try{
-        console.log('ya found me')
     const id = req.params.id; 
     await Task.findByIdAndRemove(id)
     res.status(200).send('task deleted')
@@ -33,5 +44,5 @@ const deleteTasks = async(req,res) => {
     }
 
 module.exports = {
-    getTasks, postTasks, deleteTasks
+    getTasks, postTasks, deleteTasks, updateTasks
 }
