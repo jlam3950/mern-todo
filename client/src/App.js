@@ -2,6 +2,7 @@ import './App.css';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import List from './components/ List';
+import Footer from './components/Footer'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -29,7 +30,7 @@ const retreiveMongoData = async () => {
     // you do not have to add own id, used _id instead
     "completed": false, 
   }).then((response) => {
-    alert('Task created')
+    console.log('Task created')
   }).then(() => retreiveMongoData())
  }
 
@@ -80,6 +81,7 @@ return (
         <Header/>
         <SearchBar addTaskMongo = {addTaskMongo}/>
         <List taskList = {API} setAPI = {setAPI} deleteTask = {deleteTaskMongo} completeTask = {toggleMongoTask}/>
+        <Footer />
     </div>
   );
 }

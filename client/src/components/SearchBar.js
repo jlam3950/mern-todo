@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 // import Button from './button'
 
 const SearchBar = ({addTask, addTaskMongo}) => {
@@ -12,9 +13,11 @@ const SearchBar = ({addTask, addTaskMongo}) => {
     e.preventDefault();
     if(task === ''){
       alert('Please, enter some text for your to-do list!')
+    } else if (task !== ''){
+      console.log(task)
+      addTaskMongo(task,id)
+      setTask('')
     }
-    console.log(task)
-    addTaskMongo(task,id)
   }
 
 
@@ -22,11 +25,11 @@ const SearchBar = ({addTask, addTaskMongo}) => {
     <>
     <div className ='searchBar'>
         <label> 
-        Add Task:
             {/* <input type = 'text' className = 'bar' onChange = {(e) => setText(e.target.value)}></input> */}
-            <input type = 'text' className = 'bar' onChange = {(e) => setTask(e.target.value)}></input>
+            <input type = 'text' className = 'bar' value = {task} placeholder = 'Add new item...' onChange = {(e) => setTask(e.target.value)}></input>
             {/* <Button type = 'button' color ={'Green'} text={'Add Task'} click ={hi}/> */}
-            <button className = 'btn' type = 'button' onClick ={(e) => submitTask(e, task)} style={{backgroundColor: 'green'}}>Submit</button>
+            <button className = 'btn' type = 'button' onClick ={(e) => submitTask(e, task)}><FaPlus /></button>
+            
         </label>
     </div>
     </>)
